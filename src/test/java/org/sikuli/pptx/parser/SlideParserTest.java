@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.sikuli.pptx.PPTXs;
+import org.sikuli.pptx.R;
 import org.sikuli.pptx.io.PPTXBundle;
 import org.sikuli.pptx.models.ImageElement;
 import org.sikuli.pptx.models.Slide;
@@ -27,14 +27,14 @@ public class SlideParserTest {
 	
 	@Test
 	public void canParaseWithSingleTextElement() throws IOException{
-		PPTXBundle fiveSlides = PPTXBundle.createFrom(PPTXs.fiveSlides());				
+		PPTXBundle fiveSlides = PPTXBundle.createFrom(R.PPTX.fiveSlides);				
 		Slide slide = parser.parse(fiveSlides, 0);
 		assertThat(slide.getElements()[0].getText(), containsString("Slide1"));		
 	}
 	
 	@Test
 	public void canParseSlideWithTwoTextElements() throws IOException{
-		PPTXBundle fiveSlides = PPTXBundle.createFrom(PPTXs.fiveSlides());				
+		PPTXBundle fiveSlides = PPTXBundle.createFrom(R.PPTX.fiveSlides);				
 		Slide slide = parser.parse(fiveSlides, 1);
 		assertThat(slide.getElements().length, equalTo(2));
 		assertThat(slide.getElements()[0].getText(), containsString("Slide2"));
@@ -43,9 +43,8 @@ public class SlideParserTest {
 	
 	@Test
 	public void canParaseWithSingleTextElementAndSingleImageElement() throws IOException{
-		PPTXBundle fiveSlides = PPTXBundle.createFrom(PPTXs.fiveSlides());				
+		PPTXBundle fiveSlides = PPTXBundle.createFrom(R.PPTX.fiveSlides);				
 		Slide slide = parser.parse(fiveSlides, 2);
-		System.out.println(slide);
 		assertThat(slide.getElements()[1].getText(), containsString("Slide3"));
 		assertThat(slide.getElements()[0], instanceOf(ImageElement.class));
 		assertThat(((ImageElement)slide.getElements()[0]).getFileName(), endsWith("media/image1.png"));

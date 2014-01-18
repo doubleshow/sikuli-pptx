@@ -24,7 +24,7 @@ public class PPTXReader {
 
 	public List<Slide> read(File pptxFile) throws IOException {
 
-		PPTXBundle bundle = PPTXBundle.createFrom(new FileInputStream(pptxFile));
+		PPTXBundle bundle = PPTXBundle.createFrom(pptxFile.toURI().toURL());
 		logger.debug("PPTX bundle created: {}", bundle);
 
 		SlideParser parser = new SlideParser();	

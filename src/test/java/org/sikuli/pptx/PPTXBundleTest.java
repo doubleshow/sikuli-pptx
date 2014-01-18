@@ -19,16 +19,8 @@ public class PPTXBundleTest {
 
 	@Before
 	public void setUp() throws IOException{
-		bundle = PPTXBundle.createFrom(PPTXs.fiveSlides());		
+		bundle = PPTXBundle.createFrom(R.PPTX.fiveSlides);		
 	}
-	
-	@After
-	public void breakDown() throws IOException{
-//		bundle = PPTXBundle.createFrom(PPTXs.fiveSlides);
-		
-		
-	}
-	
 	
 	@Test
 	public void canGetSlideCount(){
@@ -56,7 +48,7 @@ public class PPTXBundleTest {
 	
 	@Test
 	public void canCheckInvalid() throws IOException{
-		PPTXBundle badBundle = PPTXBundle.createFrom(PPTXs.bad());
+		PPTXBundle badBundle = PPTXBundle.createFrom(R.PPTX.bad);
 		assertThat(badBundle.isValid(), equalTo(false));
 	}
 

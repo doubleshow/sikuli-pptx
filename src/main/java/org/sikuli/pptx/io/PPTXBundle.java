@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -31,8 +32,8 @@ public class PPTXBundle {
 	}
 
 
-	public static PPTXBundle createFrom(InputStream is) throws IOException{
-		PPTXBundle bundle = new PPTXBundle(is);
+	public static PPTXBundle createFrom(URL url) throws IOException{
+		PPTXBundle bundle = new PPTXBundle(url.openStream());
 		return bundle;
 	}
 
