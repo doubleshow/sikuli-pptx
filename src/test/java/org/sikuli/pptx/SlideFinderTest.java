@@ -7,17 +7,14 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
-import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.sikuli.pptx.models.ImageElement;
 import org.sikuli.pptx.models.Slide;
 import org.sikuli.pptx.models.SlideElement;
-import org.sikuli.pptx.util.SlideEditor;
-import org.sikuli.pptx.util.SlideElementFinder;
+import org.sikuli.pptx.util.SlideFinder;
 
-public class SlideElementFinderTest {
+public class SlideFinderTest {
 
 
 	private Slide slide;
@@ -35,48 +32,48 @@ public class SlideElementFinderTest {
 
 	@Test
 	public void exist(){
-		assertThat(SlideElementFinder.find(slide).exist(), equalTo(false));
+		assertThat(SlideFinder.find(slide).exist(), equalTo(false));
 		
 		slide.add(text);
-		assertThat(SlideElementFinder.find(slide).exist(), equalTo(true));
+		assertThat(SlideFinder.find(slide).exist(), equalTo(true));
 	}
 	
 	@Test
 	public void all(){
-		assertThat(SlideElementFinder.find(slide).all().size(), equalTo(0));
+		assertThat(SlideFinder.find(slide).all().size(), equalTo(0));
 		
 		slide.add(text);
-		assertThat(SlideElementFinder.find(slide).all().size(), equalTo(1));
-		assertThat(SlideElementFinder.find(slide).all().get(0), equalTo(text));
+		assertThat(SlideFinder.find(slide).all().size(), equalTo(1));
+		assertThat(SlideFinder.find(slide).all().get(0), equalTo(text));
 	}
 
 	
 	@Test
 	public void canFindText(){
-		assertThat(SlideElementFinder.find(slide).hasText().count(), equalTo(0));
+		assertThat(SlideFinder.find(slide).hasText().count(), equalTo(0));
 		
 		slide.add(text);
-		assertThat(SlideElementFinder.find(slide).hasText().count(), equalTo(1));
+		assertThat(SlideFinder.find(slide).hasText().count(), equalTo(1));
 
 		slide.add(text);
-		assertThat(SlideElementFinder.find(slide).hasText().count(), equalTo(2));
+		assertThat(SlideFinder.find(slide).hasText().count(), equalTo(2));
 	}
 	
 	@Test
 	public void canFindImage(){
 		slide.add(text);
-		assertThat(SlideElementFinder.find(slide).isImage().count(), equalTo(0));
+		assertThat(SlideFinder.find(slide).isImage().count(), equalTo(0));
 		
 		slide.add(image);
-		assertThat(SlideElementFinder.find(slide).isImage().count(), equalTo(1));
+		assertThat(SlideFinder.find(slide).isImage().count(), equalTo(1));
 	}
 	
 	@Test
 	public void canFindFirstMatch(){
-		assertThat(SlideElementFinder.find(slide).hasText().first(), nullValue());
+		assertThat(SlideFinder.find(slide).hasText().first(), nullValue());
 		
 		slide.add(text);
-		assertThat(SlideElementFinder.find(slide).hasText().first(), equalTo(text));
+		assertThat(SlideFinder.find(slide).hasText().first(), equalTo(text));
 	}
 
 	@Test
@@ -89,7 +86,7 @@ public class SlideElementFinderTest {
 		orange.setText("orange");
 		slide.add(orange);
 		
-		assertThat(SlideElementFinder.find(slide).textContains("ang").first(), equalTo(orange));
+		assertThat(SlideFinder.find(slide).textContains("ang").first(), equalTo(orange));
 	}
 	
 	@Test
@@ -106,8 +103,8 @@ public class SlideElementFinderTest {
 		appliance.setText("appliance");
 		slide.add(appliance);
 		
-		assertThat(SlideElementFinder.find(slide).count(), equalTo(3));
-		assertThat(SlideElementFinder.find(slide).textContains("app").count(), equalTo(2));
+		assertThat(SlideFinder.find(slide).count(), equalTo(3));
+		assertThat(SlideFinder.find(slide).textContains("app").count(), equalTo(2));
 	}
 	
 	@Test
@@ -124,8 +121,8 @@ public class SlideElementFinderTest {
 		appliance.setText("pple");
 		slide.add(appliance);
 		
-		assertThat(SlideElementFinder.find(slide).count(), equalTo(3));
-		assertThat(SlideElementFinder.find(slide).textMatches(".*p+le").count(), equalTo(2));
+		assertThat(SlideFinder.find(slide).count(), equalTo(3));
+		assertThat(SlideFinder.find(slide).textMatches(".*p+le").count(), equalTo(2));
 	}
 	
 	@Test
@@ -150,8 +147,8 @@ public class SlideElementFinderTest {
 		
 		slide.add(e);
 
-		assertThat(SlideElementFinder.find(slide).near(near, 50).count(), equalTo(1));
-		assertThat(SlideElementFinder.find(slide).near(far, 50).count(), equalTo(0));
+		assertThat(SlideFinder.find(slide).near(near, 50).count(), equalTo(1));
+		assertThat(SlideFinder.find(slide).near(far, 50).count(), equalTo(0));
 	}
 	
 	@Test
@@ -183,8 +180,8 @@ public class SlideElementFinderTest {
 		slide.add(below1);
 		slide.add(below2);
 
-		assertThat(SlideElementFinder.find(slide).below(e).count(), equalTo(2));
-		assertThat(SlideElementFinder.find(slide).below(e).all(), not(hasItem(above1)));
+		assertThat(SlideFinder.find(slide).below(e).count(), equalTo(2));
+		assertThat(SlideFinder.find(slide).below(e).all(), not(hasItem(above1)));
 	}
 	
 	@Test
@@ -216,8 +213,8 @@ public class SlideElementFinderTest {
 		slide.add(right1);
 		slide.add(right2);
 
-		assertThat(SlideElementFinder.find(slide).rightOf(e).count(), equalTo(2));
-		assertThat(SlideElementFinder.find(slide).rightOf(e).all(), not(hasItem(left1)));
+		assertThat(SlideFinder.find(slide).rightOf(e).count(), equalTo(2));
+		assertThat(SlideFinder.find(slide).rightOf(e).all(), not(hasItem(left1)));
 	}
 	
 	
@@ -250,8 +247,8 @@ public class SlideElementFinderTest {
 		slide.add(intersect1);
 		slide.add(intersect2);
 
-		assertThat(SlideElementFinder.find(slide).intersects(e).count(), equalTo(2));
-		assertThat(SlideElementFinder.find(slide).intersects(e).all(), not(hasItem(outside)));
+		assertThat(SlideFinder.find(slide).intersects(e).count(), equalTo(2));
+		assertThat(SlideFinder.find(slide).intersects(e).all(), not(hasItem(outside)));
 	}
 
 	
@@ -279,8 +276,8 @@ public class SlideElementFinderTest {
 		slide.add(top);
 		slide.add(bottom);
 		
-		assertThat(SlideElementFinder.find(slide).first(), equalTo(middle));
-		assertThat(SlideElementFinder.find(slide).orderByY().first(), equalTo(top));
+		assertThat(SlideFinder.find(slide).first(), equalTo(middle));
+		assertThat(SlideFinder.find(slide).orderByY().first(), equalTo(top));
 	}
 	
 	@Test
@@ -307,7 +304,7 @@ public class SlideElementFinderTest {
 		slide.add(left);
 		slide.add(right);
 		
-		assertThat(SlideElementFinder.find(slide).first(), equalTo(center));
-		assertThat(SlideElementFinder.find(slide).orderByY().first(), equalTo(left));
+		assertThat(SlideFinder.find(slide).first(), equalTo(center));
+		assertThat(SlideFinder.find(slide).orderByY().first(), equalTo(left));
 	}
 }

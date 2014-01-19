@@ -19,14 +19,14 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 
-// Fluent class for finding slide elements by filtering and sorting criteria
-public class SlideElementFinder {
-	static Logger logger = LoggerFactory.getLogger(SlideElementFinder.class);
+// Fluent class for finding elements on a given slide by filtering and sorting criteria
+public class SlideFinder {
+	static Logger logger = LoggerFactory.getLogger(SlideFinder.class);
 
 	private List<Operator> operators = Lists.newArrayList();
 
 	final Slide slide;
-	SlideElementFinder(Slide slide){
+	SlideFinder(Slide slide){
 		this.slide = slide;
 	}
 
@@ -91,7 +91,7 @@ public class SlideElementFinder {
 		operators.add(new Applier(proc));
 	}
 
-	public SlideElementFinder below(final SlideElement element){	
+	public SlideFinder below(final SlideElement element){	
 		checkNotNull(element);
 		final Rectangle r = element.getBounds();
 		addFilter(new Predicate<SlideElement>(){
@@ -102,7 +102,7 @@ public class SlideElementFinder {
 		return this;
 	}
 
-	public SlideElementFinder rightOf(final SlideElement element){	
+	public SlideFinder rightOf(final SlideElement element){	
 		checkNotNull(element);
 		final Rectangle r = element.getBounds();
 		addFilter(new Predicate<SlideElement>(){
@@ -113,7 +113,7 @@ public class SlideElementFinder {
 		return this;
 	}
 
-	public SlideElementFinder intersects(final SlideElement element){		
+	public SlideFinder intersects(final SlideElement element){		
 		checkNotNull(element);
 		final Rectangle r = element.getBounds();
 		addFilter(new Predicate<SlideElement>(){
@@ -124,7 +124,7 @@ public class SlideElementFinder {
 		return this;
 	}
 
-	public SlideElementFinder near(final SlideElement element, int radius){	
+	public SlideFinder near(final SlideElement element, int radius){	
 		checkNotNull(element);
 		final Rectangle r = element.getBounds();
 		r.x -= radius;
@@ -163,7 +163,7 @@ public class SlideElementFinder {
 	//		return this;
 	//	}
 	//	
-	public SlideElementFinder orderByY(){
+	public SlideFinder orderByY(){
 		addSorter(new Comparator<SlideElement>(){
 			public int compare(SlideElement a, SlideElement b) {				
 				return a.getOffy() - b.getOffy();
@@ -172,7 +172,7 @@ public class SlideElementFinder {
 		return this;
 	}
 
-	public SlideElementFinder orderByX(){
+	public SlideFinder orderByX(){
 		addSorter(new Comparator<SlideElement>(){
 			public int compare(SlideElement a, SlideElement b) {				
 				return a.getOffx() - b.getOffx();
@@ -182,7 +182,7 @@ public class SlideElementFinder {
 	}
 
 
-	public SlideElementFinder print(final PrintStream out){
+	public SlideFinder print(final PrintStream out){
 		addApplier(new Function<SlideElement, Void>(){
 			public Void apply(SlideElement element) {
 				out.println(element);
@@ -213,7 +213,7 @@ public class SlideElementFinder {
 			return null;
 	}
 
-	public SlideElementFinder hasText(){
+	public SlideFinder hasText(){
 		addFilter(new Predicate<SlideElement>(){
 			public boolean apply(SlideElement e) {
 				return hasText(e);
@@ -222,7 +222,7 @@ public class SlideElementFinder {
 		return this;
 	}
 
-	public SlideElementFinder textContains(final String str){
+	public SlideFinder textContains(final String str){
 		addFilter(new Predicate<SlideElement>(){
 			public boolean apply(SlideElement e) {
 				return e.getText() != null && e.getText().contains(str);
@@ -231,7 +231,7 @@ public class SlideElementFinder {
 		return this;
 	}
 
-	public SlideElementFinder textStartsWith(final String str){
+	public SlideFinder textStartsWith(final String str){
 		addFilter(new Predicate<SlideElement>(){
 			public boolean apply(SlideElement e) {
 				return e.getText() != null && e.getText().startsWith(str);
@@ -240,7 +240,7 @@ public class SlideElementFinder {
 		return this;
 	}
 
-	public SlideElementFinder textMatches(final String regex){		
+	public SlideFinder textMatches(final String regex){		
 		addFilter(new Predicate<SlideElement>(){
 			public boolean apply(SlideElement e) {				
 				return e.getText() != null && e.getText().matches(regex);
@@ -253,7 +253,7 @@ public class SlideElementFinder {
 		return e.getText() != null && ! e.getText().isEmpty();
 	}
 
-	public SlideElementFinder isImage() {
+	public SlideFinder isImage() {
 		addFilter(new Predicate<SlideElement>(){
 			public boolean apply(SlideElement e) {				
 				return e instanceof ImageElement;
@@ -262,8 +262,8 @@ public class SlideElementFinder {
 		return this;
 	}
 
-	public static SlideElementFinder find(Slide slide) {		
-		return new SlideElementFinder(slide);
+	public static SlideFinder find(Slide slide) {		
+		return new SlideFinder(slide);
 	}
 
 }
