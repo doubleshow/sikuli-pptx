@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 import org.sikuli.pptx.models.Slide;
-import org.sikuli.pptx.models.SlideEditor;
+import org.sikuli.pptx.util.SlideEditor;
 
 public class SlideBuilderTest {
 

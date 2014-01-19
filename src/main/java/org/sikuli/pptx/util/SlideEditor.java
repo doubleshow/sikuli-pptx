@@ -1,8 +1,12 @@
-package org.sikuli.pptx.models;
+package org.sikuli.pptx.util;
 
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
+
+import org.sikuli.pptx.models.ImageElement;
+import org.sikuli.pptx.models.Slide;
+import org.sikuli.pptx.models.SlideElement;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
